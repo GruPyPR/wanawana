@@ -1,0 +1,32 @@
+{% extends "bootstrap3/bootstrap3.html" %}
+
+{% block bootstrap3_title %}WanaWana meet?{% endblock %}
+
+{% block bootstrap3_extra_head %}
+<style type='text/css'>
+    .big_fat_button {
+        min-height: 10em;
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    div.container {top: 0; left: 0; width: 100%; height: 100%;
+      position: absolute; display: table}
+    p {display: table-cell; vertical-align: middle}
+    p {text-align: center}
+    body, html {height: 100%; margin: 0; padding: 0}
+</style>
+{% endblock %}
+{% block bootstrap3_content %}
+  <div class='container'>
+    <p>
+      <a class='btn btn-primary btn-lg' href='{% url 'new_event' %}'>
+        Create a new event
+
+      </a>
+      <br />
+      <br />
+      <br />
+    </p>
+  </div>
+{% endblock %}

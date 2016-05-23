@@ -1,0 +1,449 @@
+<div id='myScheduler' class='scheduler row' data-initialize='scheduler'>
+  <div class='start-datetime'>
+    <div class='form-group col-md-6 {% if form.date.errors %}has-error{% elif form.data and form.date %}has-success{% endif %}'>
+      <label class='control-label scheduler-label' for='myStartDate'>
+        Date (optional)
+      </label>
+      <div class='datepicker start-date'>
+        <div class='input-group'>
+          <input id='myStartDate' class='form-control' type='text' name='date' />
+          <div class='input-group-btn'>
+            <a class='btn btn-default dropdown-toggle' data-toggle='dropdown' type='button'>
+              <span class='glyphicon glyphicon-calendar'></span>
+              <span class='sr-only'>Toggle Calendar</span>
+            </a>
+            <div class='dropdown-menu dropdown-menu-right datepicker-calendar-wrapper' role='menu'>
+              <div class='datepicker-calendar'>
+                <div class='datepicker-calendar-header'>
+                  <a class='prev'>
+                    <span class='glyphicon glyphicon-chevron-left'></span>
+                    <span class='sr-only'>Previous Month</span>
+                  </a>
+                  <a class='next'>
+                    <span class='glyphicon glyphicon-chevron-right'></span>
+                    <span class='sr-only'>Next Month</span>
+                  </a>
+                  <a class='title'>
+                    <span class='month'>
+                      <span data-month='0'>January</span>
+                      <span data-month='1'>February</span>
+                      <span data-month='2'>March</span>
+                      <span data-month='3'>April</span>
+                      <span data-month='4'>May</span>
+                      <span data-month='5'>June</span>
+                      <span data-month='6'>July</span>
+                      <span data-month='7'>August</span>
+                      <span data-month='8'>September</span>
+                      <span data-month='9'>October</span>
+                      <span data-month='10'>November</span>
+                      <span data-month='11'>December</span>
+                    </span>
+                    <span class='year'></span>
+                  </a>
+                </div>
+                <table class='datepicker-calendar-days'>
+                  <thead>
+                    <tr>
+                      <th>Su</th>
+                      <th>Mo</th>
+                      <th>Tu</th>
+                      <th>We</th>
+                      <th>Th</th>
+                      <th>Fr</th>
+                      <th>Sa</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+                <div class='datepicker-calendar-footer'>
+                  <a class='datepicker-today'>Today</a>
+                </div>
+              </div>
+              <div class='datepicker-wheels' aria-hidden='true'>
+                <div class='datepicker-wheels-month'>
+                  <h2 class='header'>Month</h2>
+                  <ul>
+                    <li data-month='0'>
+                      <button type='button'>Jan</button>
+                    </li>
+                    <li data-month='1'>
+                      <button type='button'>Feb</button>
+                    </li>
+                    <li data-month='2'>
+                      <button type='button'>Mar</button>
+                    </li>
+                    <li data-month='3'>
+                      <button type='button'>Apr</button>
+                    </li>
+                    <li data-month='4'>
+                      <button type='button'>May</button>
+                    </li>
+                    <li data-month='5'>
+                      <button type='button'>Jun</button>
+                    </li>
+                    <li data-month='6'>
+                      <button type='button'>Jul</button>
+                    </li>
+                    <li data-month='7'>
+                      <button type='button'>Aug</button>
+                    </li>
+                    <li data-month='8'>
+                      <button type='button'>Sep</button>
+                    </li>
+                    <li data-month='9'>
+                      <button type='button'>Oct</button>
+                    </li>
+                    <li data-month='10'>
+                      <button type='button'>Nov</button>
+                    </li>
+                    <li data-month='11'>
+                      <button type='button'>Dec</button>
+                    </li>
+                  </ul>
+                </div>
+                <div class='datepicker-wheels-year'>
+                  <h2 class='header'>Year</h2>
+                  <ul></ul>
+                </div>
+                <div class='datepicker-wheels-footer clearfix'>
+                  <a class='btn datepicker-wheels-back'>
+                    <span class='glyphicon glyphicon-arrow-left'></span>
+                    <span class='sr-only'>Return to Calendar</span>
+                  </a>
+                  <a class='btn datepicker-wheels-select' type='button'>
+                    Select
+                    <span class='sr-only'>Month and Year</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='form-group col-md-6 {% if form.time.errors %}has-error{% elif form.data and form.time %}has-success{% endif %}'>
+      <label class='control-label' for='MyStartTime'>Start Time (optional)</label>
+      <div class='input-group combobox start-time'>
+        <input id='myStartTime' class='form-control' type='text' name='time' />
+        <div class='input-group-btn'>
+          <button class='btn btn-default dropdown-toggle' data-toggle='dropdown' type='button'>
+            <span class='caret'></span>
+            <span class='sr-only'>Toggle Dropdown</span>
+          </button>
+          <ul class='dropdown-menu dropdown-menu-right' role='menu'>
+            <li>
+              <a href='#'>0:00</a>
+            </li>
+            <li>
+              <a href='#'>0:30</a>
+            </li>
+            <li>
+              <a href='#'>1:00</a>
+            </li>
+            <li>
+              <a href='#'>1:30</a>
+            </li>
+            <li>
+              <a href='#'>2:00</a>
+            </li>
+            <li>
+              <a href='#'>2:30</a>
+            </li>
+            <li>
+              <a href='#'>3:00</a>
+            </li>
+            <li>
+              <a href='#'>3:30</a>
+            </li>
+            <li>
+              <a href='#'>4:00</a>
+            </li>
+            <li>
+              <a href='#'>4:30</a>
+            </li>
+            <li>
+              <a href='#'>5:00</a>
+            </li>
+            <li>
+              <a href='#'>5:30</a>
+            </li>
+            <li>
+              <a href='#'>6:00</a>
+            </li>
+            <li>
+              <a href='#'>6:30</a>
+            </li>
+            <li>
+              <a href='#'>7:00</a>
+            </li>
+            <li>
+              <a href='#'>7:30</a>
+            </li>
+            <li>
+              <a href='#'>8:00</a>
+            </li>
+            <li>
+              <a href='#'>8:30</a>
+            </li>
+            <li>
+              <a href='#'>9:00</a>
+            </li>
+            <li>
+              <a href='#'>9:30</a>
+            </li>
+            <li>
+              <a href='#'>10:00</a>
+            </li>
+            <li>
+              <a href='#'>10:30</a>
+            </li>
+            <li>
+              <a href='#'>11:00</a>
+            </li>
+            <li>
+              <a href='#'>11:30</a>
+            </li>
+            <li>
+              <a href='#'>12:00</a>
+            </li>
+            <li>
+              <a href='#'>12:30</a>
+            </li>
+            <li>
+              <a href='#'>13:00</a>
+            </li>
+            <li>
+              <a href='#'>13:30</a>
+            </li>
+            <li>
+              <a href='#'>14:00</a>
+            </li>
+            <li>
+              <a href='#'>14:30</a>
+            </li>
+            <li>
+              <a href='#'>15:00</a>
+            </li>
+            <li>
+              <a href='#'>15:30</a>
+            </li>
+            <li>
+              <a href='#'>16:00</a>
+            </li>
+            <li>
+              <a href='#'>16:30</a>
+            </li>
+            <li>
+              <a href='#'>17:00</a>
+            </li>
+            <li>
+              <a href='#'>17:30</a>
+            </li>
+            <li>
+              <a href='#'>18:00</a>
+            </li>
+            <li>
+              <a href='#'>18:30</a>
+            </li>
+            <li>
+              <a href='#'>19:00</a>
+            </li>
+            <li>
+              <a href='#'>19:30</a>
+            </li>
+            <li>
+              <a href='#'>20:00</a>
+            </li>
+            <li>
+              <a href='#'>20:30</a>
+            </li>
+            <li>
+              <a href='#'>21:00</a>
+            </li>
+            <li>
+              <a href='#'>21:30</a>
+            </li>
+            <li>
+              <a href='#'>22:00</a>
+            </li>
+            <li>
+              <a href='#'>22:30</a>
+            </li>
+            <li>
+              <a href='#'>23:00</a>
+            </li>
+            <li>
+              <a href='#'>23:30</a>
+
+
+
+
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class='form-group repeat-end hide' aria-hidden='true'>
+      <label class='col-sm-2 control-label scheduler-label'>End</label>
+      <div class='col-sm-10 row'>
+        <div class='col-sm-3 form-group'>
+          <div class='btn-group selectlist end-options pull-left' data-resize='auto'>
+            <button class='btn btn-default dropdown-toggle' data-toggle='dropdown' type='button'>
+              <span class='selected-label'>Never</span>
+              <span class='caret'></span>
+              <span class='sr-only'>Never</span>
+            </button>
+            <ul class='dropdown-menu' role='menu'>
+              <li data-value='never'>
+                <a href='#'>Never</a>
+              </li>
+              <li data-value='after'>
+                <a href='#'>After</a>
+              </li>
+              <li data-value='date'>
+                <a href='#'>On date</a>
+              </li>
+            </ul>
+            <input class='hidden hidden-field' readonly='readonly' type='text' name='EndSelectlist' aria-hidden='true' />
+          </div>
+        </div>
+        <div class='col-sm-6 form-group end-option-panel end-after-panel pull-left hide' aria-hidden='true'>
+          <div class='spinbox digits-3 end-after'>
+            <label id='MyEndAfter' class='sr-only'>End After</label>
+            <input class='form-control input-mini spinbox-input' aria-labelledby='MyEndAfter' type='text' />              <div class='spinbox-buttons btn-group btn-group-vertical'>
+                <button class='btn btn-default spinbox-up btn-xs' type='button'>
+                  <span class='glyphicon glyphicon-chevron-up'></span>
+                  <span class='sr-only'>Increase</span>
+                </button>
+                <button class='btn btn-default spinbox-down btn-xs' type='button'>
+                  <span class='glyphicon glyphicon-chevron-down'></span>
+                  <span class='sr-only'>Decrease</span>
+                </button>
+              </div>
+
+          </div>
+          <div class='inline-form-text end-after-text'>occurance(s)</div>
+        </div>
+        <div class='col-sm-8 form-group end-option-panel end-on-date-panel pull-left hide' aria-hidden='true'>
+          <div class='datepicker input-group end-on-date'>
+            <div class='input-group'>
+              <input class='form-control' type='text' />
+              <div class='input-group-btn'>
+                <button class='btn btn-default dropdown-toggle' data-toggle='dropdown' type='button'>
+                  <span class='glyphicon glyphicon-calendar'></span>
+                  <span class='sr-only'>Toggle Calendar</span>
+                </button>
+                <div class='dropdown-menu dropdown-menu-right datepicker-calendar-wrapper' role='menu'>
+                  <div class='datepicker-calendar'>
+                    <div class='datepicker-calendar-header'>
+                      <button class='prev'>
+                        <span class='glyphicon glyphicon-chevron-left'></span>
+                        <span class='sr-only'>Previous Month</span>
+                      </button>
+                      <button class='next'>
+                        <span class='glyphicon glyphicon-chevron-right'></span>
+                        <span class='sr-only'>Next Month</span>
+                      </button>
+                      <button class='title'>
+                        <span class='month'>
+                          <span data-month='0'>January</span>
+                          <span data-month='1'>February</span>
+                          <span data-month='2'>March</span>
+                          <span data-month='3'>April</span>
+                          <span data-month='4'>May</span>
+                          <span data-month='5'>June</span>
+                          <span data-month='6'>July</span>
+                          <span data-month='7'>August</span>
+                          <span data-month='8'>September</span>
+                          <span data-month='9'>October</span>
+                          <span data-month='10'>November</span>
+                          <span data-month='11'>December</span>
+                        </span>
+                        <span class='year'></span>
+                      </button>
+                    </div>
+                    <table class='datepicker-calendar-days'>
+                      <thead>
+                        <tr>
+                          <th>Su</th>
+                          <th>Mo</th>
+                          <th>Tu</th>
+                          <th>We</th>
+                          <th>Th</th>
+                          <th>Fr</th>
+                          <th>Sa</th>
+                        </tr>
+                      </thead>
+                      <tbody></tbody>
+                    </table>
+                    <div class='datepicker-calendar-footer'>
+                      <button class='datepicker-today'>Today</button>
+                    </div>
+                  </div>
+                  <div class='datepicker-wheels' aria-hidden='true'>
+                    <div class='datepicker-wheels-month'>
+                      <h2 class='header'>Month</h2>
+                      <ul>
+                        <li data-month='0'>
+                          <button>Jan</button>
+                        </li>
+                        <li data-month='1'>
+                          <button>Feb</button>
+                        </li>
+                        <li data-month='2'>
+                          <button>Mar</button>
+                        </li>
+                        <li data-month='3'>
+                          <button>Apr</button>
+                        </li>
+                        <li data-month='4'>
+                          <button>May</button>
+                        </li>
+                        <li data-month='5'>
+                          <button>Jun</button>
+                        </li>
+                        <li data-month='6'>
+                          <button>Jul</button>
+                        </li>
+                        <li data-month='7'>
+                          <button>Aug</button>
+                        </li>
+                        <li data-month='8'>
+                          <button>Sep</button>
+                        </li>
+                        <li data-month='9'>
+                          <button>Oct</button>
+                        </li>
+                        <li data-month='10'>
+                          <button>Nov</button>
+                        </li>
+                        <li data-month='11'>
+                          <button>Dec</button>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class='datepicker-wheels-year'>
+                      <h2 class='header'>Year</h2>
+                      <ul></ul>
+                    </div>
+                    <div class='datepicker-wheels-footer clearfix'>
+                      <button class='btn datepicker-wheels-back'>
+                        <span class='glyphicon glyphicon-arrow-left'></span>
+                        <span class='sr-only'>Return to Calendar</span>
+                      </button>
+                      <button class='btn datepicker-wheels-select' type='button'>
+                        Select
+                        <span class='sr-only'>Month and Year</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

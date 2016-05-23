@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+
+{% load bootstrap3 %}
+
+{% block content %}
+  <div class='fuelux'>
+    <h1>Event administration</h1>
+    <hr />
+
+    <div class='row'>
+      <p>
+        <a class='btn btn-primary btn-lg' href='{% url 'event_detail' event.slug %}' target='_blank'>
+          Access event public page
+
+        </a>
+      </p>
+      <div class='alert alert-warning'>
+        <b>Don't lose this URL! This is your only way to edit this event information. Bookmark it or write it somewhere:</b>
+        <a href='{{ current_page_url }}'>{{ current_page_url }}</a>
+
+      </div>
+    </div>
+    <form class='form' method='post'>
+      {% csrf_token %}
+
+      <div class='row'>
+        <div class='form-group'>
+          <div class='col-md-6'>
+            {% bootstrap_field form.title %}
+          </div>
+          <div class='col-md-6'>
+            <div class='form-group'>
+              <label class='control-label' for='id_slug'>
+                Public url
+              </label>
+              <input class='form-control' type='text' readonly='true' placeholder='slug' value='{{ current_base_url }}{{ event.slug }}/' title='' />
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='form-group'>
+          <div class='col-md-6'>
+            {% bootstrap_field form.admin_email %}
+          </div>
+          <div class='col-md-6' style='margin-top: 30px'>
+            <div class='form-group {% if form.send_notification_emails.errors %}has-error{% elif form.data and form.send_notification_emails %}has-success{% endif %}'>
+              <label class='control-label' for='send_notification_emails'>
+                <input id="send_notification_emails" type="checkbox" name="send_notification_emails" value="send_notification_emails" {% if form.send_notification_emails.data %}checked{% endif %}>
+                send me emails for answers and comments on the event
+              </label>
+              {% for error in form.send_notification_emails.errors %}
+                <span class='help-block'>{{ error }}</span>
+
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class='form-group'>
+        {% bootstrap_field form.description %}
+
+      </div>
+      {% include "scheduler.haml" %}
+
+      <div class='form-group'>
+        {% bootstrap_field form.location_address %}
+
+      </div>
+      <div class='form-group'>
+        <button class='btn btn-primary form-control' type='submit'>
+          Modify
+
+        </button>
+      </div>
+    </form>
+    <h2>Attendees</h2>
+    <hr />
+
+    {% if not event.yes_attending.exists and not event.maybe_attending.exists and not event.no_attending.exists %}
+      <p style='text-align: center'>
+        <i>
+          No one has answered to this event yet.
+
+        </i>
+      </p>
+    {% else %}
+      <div class='row'>
+
+        <div class='col-md-4'>
+          <div class='panel panel-success'>
+            <div class='panel-heading'>
+              <span class='badge' style='float: right'>{{ event.yes_attending.count }}</span>
+              Attending
+            </div>
+            <ul class='list-group'>
+              {% for attending in event.yes_attending %}
+                <li class='list-group-item'>
+                  {% if attending.uuid == event_attending.uuid %}
+                    <span class='badge'>You</span>
+                  {% endif %}
+                  {{ attending.name }}
+
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        <div class='col-md-4'>
+          <div class='panel panel-warning'>
+            <div class='panel-heading'>
+              <span class='badge' style='float: right'>{{ event.maybe_attending.count }}</span>
+              Maybe attending
+            </div>
+            <ul class='list-group'>
+              {% for attending in event.maybe_attending %}
+                <li class='list-group-item'>
+                  {% if attending.uuid == event_attending.uuid %}
+                    <span class='badge'>You</span>
+                  {% endif %}
+                  {{ attending.name }}
+
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        <div class='col-md-4'>
+          <div class='panel panel-default'>
+            <div class='panel-heading'>
+              <span class='badge' style='float: right'>{{ event.no_attending.count }}</span>
+              Not attending
+            </div>
+            <ul class='list-group'>
+              {% for attending in event.no_attending %}
+                <li class='list-group-item'>
+                  {% if attending.uuid == event_attending.uuid %}
+                    <span class='badge'>You</span>
+                  {% endif %}
+                  {{ attending.name }}
+
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
+{% block javascript %}
+<script type='text/javascript'>
+    $(function() {
+      $("#myStartDate").val("{% if form.date.data %}{{ form.date.data }}{% elif event.date %}{{ event.date|date:'d/m/Y' }}{% endif %}")
+      $("#myStartTime").val("{% if form.time.data %}{{ form.time.data }}{% elif event.time %}{{ event.time|time:'G:i' }}{% endif %}")
+    })
+</script>
+{% endblock %}

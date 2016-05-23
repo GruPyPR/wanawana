@@ -1,0 +1,274 @@
+{% extends "base.html" %}
+
+{% load bootstrap3 %}
+
+{% block content %}
+  <div class='row'>
+    <div class='col-md-9'>
+      <h1>{{ event.title }}</h1>
+      <hr />
+
+      {% if event_attending %}
+        <div class='alert alert-danger'>
+          <b>Warning:</b>
+          this page has your personal id in it: don't lose the address or you won't be able to change your answer in the future!
+          <a href='{{ current_page_url }}'>{{ current_page_url }}</a>
+
+        </div>
+      {% endif %}
+      <p>
+        <b>
+          {% if event.date %}
+            {{ event.date }}
+          {% else %}
+            No date yet for this event
+          {% endif %}
+          -
+          {% if event.time %}
+            {{ event.time }}
+          {% else %}
+            no hours yet for this event
+
+          {% endif %}
+        </b>
+      </p>
+      <p>
+        <i>
+          {% if event.location_address %}
+            {{ event.location_address }}
+          {% else %}
+            No location for this event yet, don't hesitate to suggest one!
+
+          {% endif %}
+        </i>
+      </p>
+      <p>{{ event.description }}</p>
+
+      <h2>Comments</h2>
+      <hr />
+
+      {% if not event.comment_set.exists %}
+        <p style='margin-bottom: 20px; margin-left: 10px'>
+          <i>
+            There is no comments yet.
+
+          </i>
+        </p>
+      {% else %}
+        {% for comment in event.comment_set.all %}
+          <div class='col-md-10 col-md-offset-1'>
+            <div class='panel panel-default'>
+              <div class='panel-heading'>{{ comment.name }}</div>
+              <div class='panel-body'>{{ comment.content }}</div>
+
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+      <div class='row'>
+        <div class='col-md-8 col-md-offset-2'>
+          <div class='form-box'>
+            <form class='form' action='' method='post'>
+              {% csrf_token %}
+              <h4>Add a comment</h4>
+              <div class='row'>
+                <div class='col-md-6'>
+                  <div class='form-group {% if comment_form.comment_name.errors %}has-error{% elif comment_form.data and comment_form.comment_name %}has-success{% endif %}'>
+                    <label class='control-label' for='comment_name'>
+                      Name
+                    </label>
+                    <input id='comment_name' class='form-control' placeholder='name' required='true' type='text' name='comment_name' value='{% if form.name.data %}{{ form.name.data }}{% endif %}' />
+
+                    {% for error in comment_form.comment_name.errors %}
+                      <span class='help-block'>{{ error }}</span>
+
+                    {% endfor %}
+                  </div>
+                </div>
+                <div class='col-md-6'>
+                  <div class='form-group'>
+                  </div>
+                </div>
+              </div>
+              <div class='form-group {% if comment_form.comment_content.errors %}has-error{% elif comment_form.data and comment_form.comment_content %}has-success{% endif %}'>
+                <label class='control-label' for='comment_content'>
+                  Comment
+                </label>
+                <textarea id='comment_content' class='form-control' required='true' name='comment_content'></textarea>
+                {% for error in comment_form.comment_content.errors %}
+                  <span class='help-block'>{{ error }}</span>
+
+                {% endfor %}
+              </div>
+              <div class='form-group'>
+                <input class='form-control btn btn-primary' type='submit' value='Add a comment' />
+
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='col-md-3'>
+      <h1>Attendees</h1>
+      <hr />
+
+      <div class='form-box'>
+        <form class='form' action='' method='post'>
+          {% csrf_token %}
+          {% if event_attending %}
+            <h4>Update my respond</h4>
+          {% else %}
+            <h4>Respond to this event</h4>
+          {% endif %}
+          <div class='form-group'>
+            {% bootstrap_field form.name %}
+
+          </div>
+          <div class='form-group'>
+            <div class='form-group {% if form.email.errors %}has-error{% elif form.data and form.email %}has-success{% endif %}'>
+              <label class='control-label' for='email'>
+                Email (optional)
+                <small>
+                  <i>
+                    it will never be shared with anyone, never.
+                  </i>
+                </small>
+              </label>
+              <input id='email' class='form-control' placeholder='Email' type='email' name='email' value='{% if form.email.data %}{{ form.email.data }}{% endif %}' />
+              {% for error in form.email.errors %}
+                <span class='help-block'>{{ error }}</span>
+
+              {% endfor %}
+            </div>
+          </div>
+          <div class='form-group'>
+            {{ form.choice.errors }}
+            <div class='btn-group btn-group-justified' data-toggle='buttons'>
+              <label class='btn btn-default {% if form.choice.data == 'yes' or not event_attending %}active{% endif %}'>
+                <input id="yes" type="radio" name="choice" value="yes" autocomplete="off" {% if form.choice.data == 'yes' or not event_attending %}checked{% endif %}>Yes</input>
+              </label>
+              <label class='btn btn-default {% if form.choice.data == 'no' %}active{% endif %}'>
+                <input id="no" type="radio" name="choice" value="no" autocomplete="off" {% if form.choice.data == 'no' %}checked{% endif %}>No</input>
+              </label>
+              <label class='btn btn-default {% if form.choice.data == 'maybe' %}active{% endif %}'>
+                <input id="maybe" type="radio" name="choice" value="maybe" autocomplete="off" {% if form.choice.data == 'maybe' %}checked{% endif %}>Maybe</input>
+
+              </label>
+            </div>
+          </div>
+          <div class='form-group {% if form.private_answer.errors %}has-error{% elif form.data and form.private_answer %}has-success{% endif %}'>
+            <label class='control-label' style='font-weight: normal' for='id_private_answer'>
+              <input id="id_private_answer" type="checkbox" name="private_answer" value="true" {% if form.private_answer.data %}checked{% endif %}/>
+              Don't display my name in the list
+              <br />
+              <center>
+                <i>
+                  <small>event organiser(s) will be able to see it</small>
+                </i>
+              </center>
+            </label>
+            {% for error in comment_form.private_answer.errors %}
+              <span class='help-block'>{{ error }}</span>
+
+            {% endfor %}
+          </div>
+          <div class='form-group'>
+            <input class='form-control btn btn-primary' type='submit' value='{% if event_attending %}Modify{% else %}Respond{% endif %}' />
+
+          </div>
+        </form>
+      </div>
+      <br />
+
+      {% if not event.yes_attending.exists and not event.maybe_attending.exists and not event.no_attending.exists %}
+        <p style='text-align: center'>
+          <i>
+            No one has answered to this event yet.
+
+          </i>
+        </p>
+      {% endif %}
+      {% if event.yes_attending.exists %}
+        <div class='panel panel-success'>
+          <div class='panel-heading'>
+            <span class='badge' style='float: right'>{{ event.yes_attending.count }}</span>
+            Attending
+          </div>
+          <ul class='list-group'>
+            {% for attending in event.yes_attending_public %}
+              <li class='list-group-item'>
+                {% if attending.uuid == event_attending.uuid %}
+                  <span class='badge'>You</span>
+                {% endif %}
+                {{ attending.name }}
+
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% if event.yes_attending_private.exists %}
+          <p style='margin-left: 15px'>
+            <i>
+              And {{ event.yes_attending_private.count }} hidden attendee{{ event.yes_attending_private.count|pluralize }}
+
+            </i>
+          </p>
+        {% endif %}
+      {% endif %}
+      {% if event.maybe_attending.exists %}
+        <div class='panel panel-warning'>
+          <div class='panel-heading'>
+            <span class='badge' style='float: right'>{{ event.maybe_attending.count }}</span>
+            Maybe attending
+          </div>
+          <ul class='list-group'>
+            {% for attending in event.maybe_attending_public %}
+              <li class='list-group-item'>
+                {% if attending.uuid == event_attending.uuid %}
+                  <span class='badge'>You</span>
+                {% endif %}
+                {{ attending.name }}
+
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% if event.maybe_attending_private.exists %}
+          <p style='margin-left: 15px'>
+            <i>
+              And {{ event.maybe_attending_private.count }} hidden attendee{{ event.maybe_attending_private.count|pluralize }}
+
+            </i>
+          </p>
+        {% endif %}
+      {% endif %}
+      {% if event.no_attending.exists %}
+        <div class='panel panel-default'>
+          <div class='panel-heading'>
+            <span class='badge' style='float: right'>{{ event.no_attending.count }}</span>
+            Not attending
+          </div>
+          <ul class='list-group'>
+            {% for attending in event.no_attending_public %}
+              <li class='list-group-item'>
+                {% if attending.uuid == event_attending.uuid %}
+                  <span class='badge'>You</span>
+                {% endif %}
+                {{ attending.name }}
+
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% if event.no_attending_private.exists %}
+          <p style='margin-left: 15px'>
+            <i>
+              And {{ event.no_attending_private.count }} hidden attendee{{ event.no_attending_private.count|pluralize }}
+            </i>
+          </p>
+        {% endif %}
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

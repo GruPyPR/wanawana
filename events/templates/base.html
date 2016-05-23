@@ -1,0 +1,41 @@
+{% extends "bootstrap3/bootstrap3.html" %}
+{% load static %}
+
+{% block bootstrap3_extra_head %}
+<link href="{% static 'css/main.css' %}" rel="stylesheet" />
+<link href="{% static 'css/fuelux.min.css' %}" rel="stylesheet" />
+<link href="{% static 'css/sticky-footer.css' %}" rel="stylesheet" />
+  {% block head %}
+  {% endblock %}
+{% endblock %}
+
+{% block bootstrap3_title %}
+  {% if event.title %}
+    {{ event.title }} - WanaWana meet?
+  {% else %}
+    WanaWana meet?
+  {% endif %}
+{% endblock %}
+{% block bootstrap3_content %}
+  <div class='container'>
+    {% block content %} {% endblock %}
+  </div>
+  <footer class='footer'>
+    <div class='container'>
+      <center>
+        <p class='text-muted'>
+          WanaWana is free software licenced under AGPLv3+ -
+          <a href='https://github.com/Psycojoker/wanawana'>
+            source code
+
+          </a>
+        </p>
+      </center>
+    </div>
+  </footer>
+{% endblock %}
+{% block bootstrap3_extra_script %}
+  <script src="{% static 'js/fuelux.js' %}"></script>
+  {% block javascript %}
+  {% endblock %}
+{% endblock %}
